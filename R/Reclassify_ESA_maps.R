@@ -16,8 +16,8 @@ Regions <- c("brazil", "canada", "central_am", "china", "east_af", "eu_east", "e
 LandCover <- c("forest", "urb", "crop")
 
 #thresholds classification
-urb_thold <- "05_urb"
-urb_t1 <- 0.05
+urb_thold <- "02_urb"
+urb_t1 <- 0.02
 urb_t2 <- 0.25
 
 crop_t1 <- 0.2
@@ -32,9 +32,9 @@ for (c in 1:length(Regions)){
   for(e in 1:length(LandCover)){
     LC <- LandCover[e]
     #Point to folders
-    inpath2000 <- paste0("Data prep/Output/Maps/LC_ESA/ESA_", LC, "/", 2000, "/")
-    inpath2015 <- paste0("Data prep/Output/Maps/LC_ESA/ESA_", LC, "/", 2015, "/")
-    outpath <- paste0("Data prep/Output/Maps/LC_ESA/ESA_", LC, "/")
+    inpath2000 <- paste0("C:/Bep/Projects/CLUMondo/SSP validation/Data prep/Output/Maps/ESA/ESA_", LC, "/", 2000, "/")
+    inpath2015 <- paste0("C:/Bep/Projects/CLUMondo/SSP validation/Data prep/Output/Maps/ESA/ESA_", LC, "/", 2015, "/")
+    outpath <- paste0("C:/Bep/Projects/CLUMondo/SSP validation/Data prep/Output/Maps/ESA/ESA_", LC, "/")
 
     t1 <- get(paste0(LC, "_t1"))
     t2 <- get(paste0(LC, "_t2"))
@@ -56,25 +56,25 @@ for (c in 1:length(Regions)){
 #Therefore to correct for urban area in checking cropland change
 #reclass all areas in the crop and forest maps that are also urban in the urban map to 0
 
-urb_map2000 <- raster(paste0("Data prep/Output/Maps/LC_ESA/remap/ESA_urb/Reclassified_urb/2000/", region, "_urb_", urb_thold, "_2000.tif"))
-crop_map2000 <- raster(paste0("Data prep/Output/Maps/LC_ESA/remap/ESA_crop/Reclassified_crop/2000/", region, "_crop_", urb_thold, "_2000.tif"))
-forest_map2000 <- raster(paste0("Data prep/Output/Maps/LC_ESA/remap/ESA_forest/Reclassified_forest/2000/", region, "_forest_", urb_thold, "_2000.tif"))
+urb_map2000 <- raster(paste0("Data prep/Output/Maps/ESA/ESA_urb/Reclassified_urb/2000/", region, "_urb_", urb_thold, "_2000.tif"))
+crop_map2000 <- raster(paste0("Data prep/Output/Maps/ESA/ESA_crop/Reclassified_crop/2000/", region, "_crop_", urb_thold, "_2000.tif"))
+forest_map2000 <- raster(paste0("Data prep/Output/Maps/ESA/ESA_forest/Reclassified_forest/2000/", region, "_forest_", urb_thold, "_2000.tif"))
 
 crop_map2000[urb_map2000 == 1| urb_map2000 == 2] <- 0
 forest_map2000[urb_map2000 == 1| urb_map2000 == 2] <- 0
 
-writeRaster(crop_map2000, filename = paste0("Data prep/Output/Maps/LC_ESA/remap/ESA_crop/Reclassified_crop/2000/", region, "_crop_", urb_thold, "_2000.tif"), overwrite = TRUE)
-writeRaster(forest_map2000, filename = paste0("Data prep/Output/Maps/LC_ESA/remap/ESA_forest/Reclassified_forest/2000/", region, "_forest_", urb_thold, "_2000.tif"), overwrite = TRUE)
+writeRaster(crop_map2000, filename = paste0("Data prep/Output/Maps/ESA/ESA_crop/Reclassified_crop/2000/", region, "_crop_", urb_thold, "_2000.tif"), overwrite = TRUE)
+writeRaster(forest_map2000, filename = paste0("Data prep/Output/Maps/ESA/ESA_forest/Reclassified_forest/2000/", region, "_forest_", urb_thold, "_2000.tif"), overwrite = TRUE)
 
-urb_map2015 <- raster(paste0("Data prep/Output/Maps/LC_ESA/remap/ESA_urb/Reclassified_urb/2015/", region, "_urb_rcl_2015.tif"))
-crop_map2015 <- raster(paste0("Data prep/Output/Maps/LC_ESA/remap/ESA_crop/Reclassified_crop/2015/", region, "_crop_rcl_2015.tif"))
-forest_map2015 <- raster(paste0("Data prep/Output/Maps/LC_ESA/remap/ESA_forest/Reclassified_forest/2015/", region, "_forest_rcl_2015.tif"))
+urb_map2015 <- raster(paste0("Data prep/Output/Maps/ESA/ESA_urb/Reclassified_urb/2015/", region, "_urb_", urb_thold, "_2015.tif"))
+crop_map2015 <- raster(paste0("Data prep/Output/Maps/ESA/ESA_crop/Reclassified_crop/2015/", region, "_crop_", urb_thold, "_2015.tif"))
+forest_map2015 <- raster(paste0("Data prep/Output/Maps/ESA/ESA_forest/Reclassified_forest/2015/", region, "_forest_", urb_thold, "_2015.tif"))
 
 crop_map2015[urb_map2015 == 1| urb_map2015 == 2] <- 0
 forest_map2015[urb_map2015 == 1| urb_map2015 == 2] <- 0
 
-writeRaster(crop_map2015, filename = paste0("Data prep/Output/Maps/LC_ESA/remap/ESA_crop/Reclassified_crop/2015/", region, "_crop_", urb_thold, "_2015.tif"), overwrite = TRUE)
-writeRaster(forest_map2015, filename = paste0("Data prep/Output/Maps/LC_ESA/remap/ESA_forest/Reclassified_forest/2015/", region, "_forest_", urb_thold, "_2015.tif"), overwrite = TRUE)
+writeRaster(crop_map2015, filename = paste0("Data prep/Output/Maps/ESA/ESA_crop/Reclassified_crop/2015/", region, "_crop_", urb_thold, "_2015.tif"), overwrite = TRUE)
+writeRaster(forest_map2015, filename = paste0("Data prep/Output/Maps/ESA/ESA_forest/Reclassified_forest/2015/", region, "_forest_", urb_thold, "_2015.tif"), overwrite = TRUE)
 
 }
 

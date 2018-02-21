@@ -3,9 +3,9 @@
 require(CLUvalid)
 
 #define scenario
-scenario <- "Scenario_SSP2"
+Tests <- c()
 
-outpath <- "C:/Bep/Projects/CLUMondo/SSP Validation/Data prep/Output/Maps/Scenario_SSP2/"
+path <- "C:/Bep/Projects/CLUMondo/SSP Validation/Data prep/Output/Maps/Tests/"
 
 LandCover <- c("forest", "urb", "crop")
 
@@ -22,19 +22,19 @@ forest_rcl <- matrix(f, ncol = 3, byrow = TRUE)
 for(e in 1:length(LandCover)){
   LC <- LandCover[e]
 
-  CLU_folders <- list_CLU_folders(inpath = "C:/Bep/Projects/CLUMondo/SSP Implementation/Scenario_", scenario = "SSP2")
+  for(i in 1:length(Tests)){
+  test <- Tests[i]
+  region_name <- basename(test)
 
-  for(i in 1:length(CLU_folders)){
-  region <- CLU_folders[i]
-  region_name <- basename(region)
-
-  region2000 <- raster(paste0(region, "cov_all.0.asc"))
-  region2015 <- raster(paste0(region, "cov_all.15.asc"))
+  region2015 <- raster(paste0(path, test, "/cov_all.15.asc"))
 
   rcl_LC <- get(paste0(LC, "_rcl"))
 
-  reclass2000 <- reclassify(region2000, rcl_LC, filename = paste0(outpath, scenario, "_", LC, "/Reclassified_", LC, "/2000/", region_name, "_", LC, "_rcl_2000.tif"), overwrite = TRUE)
   reclass2015 <- reclassify(region2015, rcl_LC, filename = paste0(outpath, scenario, "_", LC, "/Reclassified_", LC, "/2015/", region_name, "_", LC, "_rcl_2015.tif"), overwrite = TRUE)
 
   }
 }
+#need to adapt still to structure of test regions eg - test regions in diff folders, then subdivided into tests, or vice versa. And
+#where do the results go ie reclassified and change
+#also create a script calculating quantities
+#and adapt 'calculate change'script for tests

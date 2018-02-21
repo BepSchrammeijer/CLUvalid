@@ -15,7 +15,7 @@
 #21 = diversification: from specialised cropland to mosaic
 
 scenario <- "ESA"
-urb_thold <- "_05_urb_"
+urb_thold <- "_02_urb_"
 
 LandCover <- c("forest", "urb", "crop")
 
@@ -42,7 +42,7 @@ for(e in 1:length(LandCover)){
     region2015 <- raster(paste0(inpath2015, region, "_", LC, rcl_type, "2015.tif"))
 
     region_change <- (region2000 * 10) + region2015
-    region_change <- writeRaster(region_change, filename = paste0(outpath, scenario, "_change_",LC, rcl_type, region, "_2015.tif"), format = "GTiff", overwrite = TRUE)
+    region_change <- writeRaster(region_change, filename = paste0(outpath, scenario, "_change_", LC, rcl_type, region, "_2015.tif"), format = "GTiff", overwrite = TRUE)
 
   }
 

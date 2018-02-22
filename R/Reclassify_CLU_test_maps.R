@@ -3,9 +3,12 @@
 require(CLUvalid)
 
 #define scenario
-Tests <- c()
+region <- "India"
+#Tests <- c("C", "CL", "CL1", "CL1n", "CL1w", "CL1wn", "CL1wn2", "L", "L1", "L1w", "L1wn", "L1wn2", "n", "n2", "w", "wn", "wn2")
+Tests <- c("CL1wn2", "L1wn2")
 
-path <- "C:/Bep/Projects/CLUMondo/SSP Validation/Data prep/Output/Maps/Tests/"
+inpath <- "C:/Bep/Projects/CLUMondo/SSP Validation/Data prep/Tests/"
+outpath <- "C:/Bep/Projects/CLUMondo/SSP Validation/Data prep/Output/Maps/Tests/"
 
 LandCover <- c("forest", "urb", "crop")
 
@@ -26,15 +29,13 @@ for(e in 1:length(LandCover)){
   test <- Tests[i]
   region_name <- basename(test)
 
-  region2015 <- raster(paste0(path, test, "/cov_all.15.asc"))
+  region2015 <- raster(paste0(inpath, region, "/", region, "_", test, "/cov_all.15.asc"))
 
   rcl_LC <- get(paste0(LC, "_rcl"))
 
-  reclass2015 <- reclassify(region2015, rcl_LC, filename = paste0(outpath, scenario, "_", LC, "/Reclassified_", LC, "/2015/", region_name, "_", LC, "_rcl_2015.tif"), overwrite = TRUE)
+  reclass2015 <- reclassify(region2015, rcl_LC, filename = paste0(outpath, "Tests_", LC, "/Reclassified_", LC, "/2015/", region, "_", test, "_", LC, "_rcl_2015.tif"), overwrite = TRUE)
 
   }
 }
-#need to adapt still to structure of test regions eg - test regions in diff folders, then subdivided into tests, or vice versa. And
-#where do the results go ie reclassified and change
 #also create a script calculating quantities
 #and adapt 'calculate change'script for tests

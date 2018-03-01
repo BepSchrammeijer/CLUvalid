@@ -22,7 +22,7 @@ forest_rcl <- matrix(f, ncol = 3, byrow = TRUE)
 for(e in 1:length(LandCover)){
   LC <- LandCover[e]
 
-  CLU_folders <- list_CLU_folders(inpath = "C:/Bep/Projects/CLUMondo/SSP Implementation/Scenario_", scenario = "SSP2")
+  CLU_folders <- list_CLU_folders(inpath = "U:/CLUMondo/SSP Implementation/Scenario_", scenario = "SSP2")
 
   for(i in 1:length(CLU_folders)){
   region <- CLU_folders[i]
@@ -33,8 +33,13 @@ for(e in 1:length(LandCover)){
 
   rcl_LC <- get(paste0(LC, "_rcl"))
 
-  reclass2000 <- reclassify(region2000, rcl_LC, filename = paste0(outpath, scenario, "_", LC, "/Reclassified_", LC, "/2000/", region_name, "_", LC, "_rcl_2000.tif"), overwrite = TRUE)
-  reclass2015 <- reclassify(region2015, rcl_LC, filename = paste0(outpath, scenario, "_", LC, "/Reclassified_", LC, "/2015/", region_name, "_", LC, "_rcl_2015.tif"), overwrite = TRUE)
+  reclass2000 <- reclassify(region2000, rcl_LC, filename = paste0(outpath, scenario, "_", LC, "/Reclassified_", LC, "/2000/", region_name, "_", LC, "_rcl_2000.asc"), overwrite = TRUE)
+  reclass2015 <- reclassify(region2015, rcl_LC, filename = paste0(outpath, scenario, "_", LC, "/Reclassified_", LC, "/2015/", region_name, "_", LC, "_rcl_2015.asc"), overwrite = TRUE)
 
+  reclass2000[reclass2000 == 1 | reclass2000 == 2] <- 1
+  reclass2015[reclass2015 == 1 | reclass2015 == 2] <- 1
+
+  writeRaster(reclass2000, filename = paste0(outpath, scenario, "_", LC, "/Reclassified_", LC, "/2000/", region_name, "_", LC, "_bool_2000.asc"), overwrite = TRUE)
+  writeRaster(reclass2015, paste0(outpath, scenario, "_", LC, "/Reclassified_", LC, "/2015/", region_name, "_", LC, "_bool_2015.asc"), overwrite = TRUE)
   }
 }

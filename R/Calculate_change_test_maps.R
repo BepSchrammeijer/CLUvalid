@@ -11,12 +11,12 @@
 #20 = contraction: change from specified land system in year 2015 (cropland, urban, dense forest)
 #11 = stable: stays the same land system (mosaic, peri-urban, open forest)
 #22 = stable: stays the same land system (cropland, urban, dense forest)
-#12 = specialisation: from mosaic to specialised cropland
-#21 = diversification: from specialised cropland to mosaic
+#12 = specialisation: eg. from mosaic to specialised cropland
+#21 = diversification: eg. from specialised cropland to mosaic
 
 region <- "India"
 #Tests <- c("C", "CL", "CL1", "CL1n", "CL1w", "CL1wn", "CL1wn2", "L", "L1", "L1w", "L1wn", "L1wn2", "n", "n2", "w", "wn", "wn2")
-Tests <- c("CL1wn2", "L1wn2")
+Tests <- c("C2L1n")
 
 LandCover <- c("forest", "urb", "crop")
 

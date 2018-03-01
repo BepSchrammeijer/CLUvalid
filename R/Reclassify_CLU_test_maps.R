@@ -4,8 +4,8 @@ require(CLUvalid)
 
 #define scenario
 region <- "India"
-#Tests <- c("C", "CL", "CL1", "CL1n", "CL1w", "CL1wn", "CL1wn2", "L", "L1", "L1w", "L1wn", "L1wn2", "n", "n2", "w", "wn", "wn2")
-Tests <- c("CL1wn2", "L1wn2")
+
+Tests <- c("orig", "C", "CL", "CL1", "CL1n", "CL1w", "CL1wn", "CL1wn2", "CL1w2n2", "L", "L1", "L1w", "L1wn", "L1wn2", "L1w2n2", "n", "n2", "w", "wn", "wn2", "L3", "L3w", "L3wn", "L3wn2", "L3w2n2", "CL3wn", "C1L1w2n2", "C1L1wn2", "C1", "C2L1wn2", "C2L1n")
 
 inpath <- "C:/Bep/Projects/CLUMondo/SSP Validation/Data prep/Tests/"
 outpath <- "C:/Bep/Projects/CLUMondo/SSP Validation/Data prep/Output/Maps/Tests/"
@@ -33,8 +33,10 @@ for(e in 1:length(LandCover)){
 
   rcl_LC <- get(paste0(LC, "_rcl"))
 
-  reclass2015 <- reclassify(region2015, rcl_LC, filename = paste0(outpath, "Tests_", LC, "/Reclassified_", LC, "/2015/", region, "_", test, "_", LC, "_rcl_2015.tif"), overwrite = TRUE)
+  reclass2015 <- reclassify(region2015, rcl_LC, filename = paste0(outpath, "Tests_", LC, "/Reclassified_", LC, "/2015/", region, "_", test, "_", LC, "_rcl_2015.asc"), overwrite = TRUE)
 
+  reclass2015[reclass2015 == 1 | reclass2015 == 2] <- 1
+  writeRaster(reclass2015, filename = paste0(outpath, "Tests_", LC, "/Reclassified_", LC, "/bool/", region, "_", test, "_", LC, "_bool_2015.asc"), overwrite = TRUE)
   }
 }
 #also create a script calculating quantities

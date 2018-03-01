@@ -3,10 +3,12 @@
 #for reclassified maps
 #start with comparing urban
 
+library(dplyr)
+
 #load maps
 region <- "India"
 ESAregion <- "india"
-Tests <- c("orig", "C", "CL", "CL1", "CL1n", "CL1w", "CL1wn", "CL1wn2", "CL1w2n2", "L", "L1", "L1w", "L1wn", "L1wn2", "L1w2n2", "n", "n2", "w", "wn", "wn2", "L3", "L3w", "L3wn", "L3wn2", "L3w2n2", "CL3wn", "C1L1w2n2", "C1L1wn2", "C1", "C2L1wn2", "C2L1n")
+Tests <- c("C", "CL", "CL1", "CL1n", "CL1w", "CL1wn", "CL1wn2", "CL1w2n2", "L", "L1", "L1w", "L1wn", "L1wn2", "L1w2n2", "n", "n2", "w", "wn", "wn2", "L3", "L3w", "L3wn", "L3wn2", "L3w2n2", "CL3wn")
 
 inpath <- "C:/Bep/Projects/CLUMondo/SSP validation/Data prep/Output/Maps/"
 
@@ -22,7 +24,7 @@ for(e in 1:length(LandCover)){
 
   ESApath <- paste0(inpath, "ESA/ESA_", LC, "/Reclassified_", LC, "/")
 
-  urb_tholds <- c("01_urb", "02_urb", "05_urb", "01_2_urb", "01_15_urb", "008_1_urb")
+  urb_tholds <- c("01_urb", "02_urb", "05_urb")
 
   for(t in 1:length(urb_tholds)){
     urb_thold <- urb_tholds[t]
@@ -43,9 +45,11 @@ for(e in 1:length(LandCover)){
       colnames(table_SSP2015)[2] <- paste0("SSP2_", test)
 
       comparison_table <- cbind(comparison_table, table_SSP2015, deparse.level = 2)
-      comparison_table <- comparison_table[, !duplicated(colnames(comparison_table))]
+      colnames(comparison_table)[1] <- "Value"
+      r <- seq(2, 56, 2)
+      comparison_table <- select(comparison_table, 1, r)
 
-      write.csv(comparison_table, file = paste0("C:/Bep/Projects/CLUMondo/SSP validation/Data prep/Output/Figs/Comparison_SSP_ESA/Comparison_2015_", LC, ".csv"), row.names = FALSE)
+      #comparison_table <- write.table(comparison_table, file = paste0("C:/Bep/Projects/CLUMondo/SSP validation/Data prep/Output/Figs/Comparison_SSP_ESA/Comparison_2015_", LC, ".csv"), row.names = FALSE)
     }
 }
 

@@ -15,7 +15,7 @@
 #21 = diversification: from specialised cropland to mosaic
 
 scenario <- "ESA"
-urb_thold <- "_02_urb_"
+urb_thold <- "_01_urb_"
 
 LandCover <- c("forest", "urb", "crop")
 
